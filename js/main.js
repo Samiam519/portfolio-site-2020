@@ -1,22 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
+    let width = window.outerWidth;
+    let height = window.outerHeight;
+    AOS.init();
 
-    let width = window.innerWidth;
-
-    // Get all "navbar-burger" elements
+    // Toggle navbar burgers
     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-
-    // Check if there are any navbar burgers
     if ($navbarBurgers.length > 0) {
-
-        // Add a click event on each of them
         $navbarBurgers.forEach(el => {
             el.addEventListener('click', () => {
-
-                // Get the target from the "data-target" attribute
                 const target = el.dataset.target;
                 const $target = document.getElementById(target);
-
-                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
                 el.classList.toggle('is-active');
                 $target.classList.toggle('is-active');
 
@@ -24,12 +17,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Prep particle image array
     let img_src = ["img/lines-27.png","img/lines-28.png","img/lines-29.png","img/lines-30.png","img/lines-31.png","img/lines-32.png","img/lines-33.png","img/lines-34.png","img/lines-35.png",];
-    // Name images included
     let image_type = img_src.map(function (el, index) {
         return "image" + index
     });
 
+    // Init particles
     particlesJS(
         'background-wrapper',
         {
@@ -39,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     "value": img_src.length,
                     "density": {
                         "enable": true,
-                        "value_area": (width *0.2)
+                        "value_area": Math.round((0.26*-1*width) + 890)
                     }
                 },
                 "shape": {
@@ -87,7 +81,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 "detect_on": "window",
                 "events": {
                     "onhover": {
-                        "enable": true,
+                        "enable": (width>768),
                         "mode": "bubble"
                     },
                     "resize": true
@@ -110,6 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
     );
 
     document.getElementsByClassName('particles-js-canvas-el')[0].classList.add("animated","zoomIn","delay-1s");
-    document.getElementsByClassName('home-text')[0].style.left = ((0.0108*width)-10).toString()+"rem";
+    //document.getElementById('home-text').style.left = ((0.0108*width)-10).toString()+"rem";
+    document.getElementById('background-graphic').setAttribute("viewBox", (Math.round((0.016*-1*width)+31)+" 22.5 " + (width-125) + " " + (height-200)));
 
+    console.log("When was the last time you drank some water");
 });
